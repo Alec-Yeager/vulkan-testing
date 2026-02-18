@@ -1,4 +1,5 @@
 #include "VpeDevice.hpp"
+#include <spdlog/spdlog.h>
 
 // THIS CODE WAS COPIED FROM THE TUTORIAL
 
@@ -135,7 +136,6 @@ namespace vpe
     {
       throw std::runtime_error("failed to find GPUs with Vulkan support!");
     }
-    std::cout << "Device count: " << deviceCount << std::endl;
     std::vector<VkPhysicalDevice> devices(deviceCount);
     vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
 
@@ -154,7 +154,7 @@ namespace vpe
     }
 
     vkGetPhysicalDeviceProperties(physicalDevice, &properties);
-    std::cout << "physical device: " << properties.deviceName << std::endl;
+    SPDLOG_INFO("Physical device: {}", properties.deviceName);
   }
 
   void VpeDevice::createLogicalDevice()
@@ -326,24 +326,24 @@ namespace vpe
     std::vector<VkExtensionProperties> extensions(extensionCount);
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
 
-    std::cout << "available extensions:" << std::endl;
-    std::unordered_set<std::string> available;
-    for (const auto &extension : extensions)
-    {
-      std::cout << "\t" << extension.extensionName << std::endl;
-      available.insert(extension.extensionName);
-    }
+    // std::cout << "available extensions:" << std::endl;
+    // std::unordered_set<std::string> available;
+    // for (const auto &extension : extensions)
+    // {
+    //   std::cout << "\t" << extension.extensionName << std::endl;
+    //   available.insert(extension.extensionName);
+    // }
 
-    std::cout << "required extensions:" << std::endl;
-    auto requiredExtensions = getRequiredExtensions();
-    for (const auto &required : requiredExtensions)
-    {
-      std::cout << "\t" << required << std::endl;
-      if (available.find(required) == available.end())
-      {
-        throw std::runtime_error("Missing required glfw extension");
-      }
-    }
+    // std::cout << "required extensions:" << std::endl;
+    // auto requiredExtensions = getRequiredExtensions();
+    // for (const auto &required : requiredExtensions)
+    // {
+    //   std::cout << "\t" << required << std::endl;
+    //   if (available.find(required) == available.end())
+    //   {
+    //     throw std::runtime_error("Missing required glfw extension");
+    //   }
+    // }
   }
 
   bool VpeDevice::checkDeviceExtensionSupport(VkPhysicalDevice device)

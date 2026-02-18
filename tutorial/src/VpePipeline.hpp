@@ -12,6 +12,17 @@ namespace vpe
 {
     struct PipelineConfigInfo
     {
+        VkViewport viewport;
+        VkRect2D scissor;
+        VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
+        VkPipelineRasterizationStateCreateInfo rasterizationInfo;
+        VkPipelineMultisampleStateCreateInfo multisampleInfo;
+        VkPipelineColorBlendAttachmentState colorBlendAttachment;
+        VkPipelineColorBlendStateCreateInfo colorBlendInfo;
+        VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+        VkPipelineLayout pipelineLayout = nullptr;
+        VkRenderPass renderPass = nullptr;
+        uint32_t subpass = 0;
     };
 
     class VpePipeline
@@ -22,7 +33,7 @@ namespace vpe
             const fs::path &vertFilePath,
             const fs::path &fragFilepath,
             const PipelineConfigInfo &configInfo);
-        ~VpePipeline() {}
+        ~VpePipeline();
 
         // Remove the copy constructors again.
         VpePipeline(const VpePipeline &) = delete;

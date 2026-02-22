@@ -26,6 +26,8 @@ add_executable(VulkanPhysics
     src/VpeWindow.cpp
     src/VpePipeline.cpp
     src/VpeDevice.cpp
+    src/VpeSwapChain.cpp
+    src/VpeModel.cpp
     src/BasicApp.cpp
 )
 
@@ -50,6 +52,7 @@ foreach(shader ${SHADERS})
     add_custom_command(
         OUTPUT ${SPIRV}
         COMMAND ${GLSLC} ${shader} -o ${SPIRV}
+        DEPENDS ${shader}
         COMMENT "Compiling shader ${shader}"
     )
 

@@ -24,6 +24,13 @@ namespace vpe
         vkDestroyPipeline(vpeDevice_.device(), graphicsPipeline_, nullptr);
     }
 
+    void VpePipeline::bind(VkCommandBuffer commandBuffer)
+    {
+        // Graphics option signals that this is a graphics pipeline
+        // Other options are ray tracing and compute.
+        vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline_);
+    }
+
     PipelineConfigInfo VpePipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height)
     {
         PipelineConfigInfo configInfo{};

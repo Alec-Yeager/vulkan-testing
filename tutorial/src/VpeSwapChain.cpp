@@ -415,6 +415,7 @@ namespace vpe
     // We want mailbox. It can render frames without waiting,
     // so if it's fast enough it will just keep rendering to the back buffer
     // Instead of waiting for the backbuffer to get used by the monitor.
+    // This can be pretty power intensive tho, FIFO better for mobile and whatnot
     for (const auto &availablePresentMode : availablePresentModes)
     {
       if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR)
